@@ -5,7 +5,7 @@ Author: Yi Yang
 Contact: yangyiycc@gmail.com
 
 
-## Basic Description
+## Basic description
 
 This is the Python implementation of the social attention model for sentiment analysis, described
 in
