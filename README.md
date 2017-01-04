@@ -38,7 +38,7 @@ In order to reproduce the results reported in the paper, you will need
 Great, now you are ready to reproduce the results
 
 1. Prepare the data, and generate the required data file semeval.pkl (ask for the file from me via email if you need)
-
+```
     python process_data.py data/word_embeddings/struc_skip_600.txt \
                            data/semeval.pkl \
                            data/txt/train_2013.txt \
@@ -46,20 +46,24 @@ Great, now you are ready to reproduce the results
                            data/txt/test_2013.txt \
                            data/txt/test_2014.txt \
                            data/txt/test_2015.txt 
+```
 
 2. Reproduce *CNN* baseline results
-
+```
     python cnn_baseline.py data/semeval.pkl 
- 
-3. Reproduce *mixture of experts* baseline results
+```
 
+3. Reproduce *mixture of experts* baseline results
+```
     python mixture_expert.py data/semeval.pkl 
+```
 
 4. Reproduce *concatenation* baseline results
-
+```
     python concat_baseline.py data/semeval.pkl data/author_embeddings/retweet.emb
+```
 
 5. Reproduce *SOCIAL ATTENTION* results
-
+```
     python social_attention.py data/semeval.pkl data/author_embeddings/retweet.emb
-
+```
