@@ -27,10 +27,10 @@ in
 In order to reproduce the results reported in the paper, you will need
 
 1. The SemEval 2015 Twitter sentiment analysis datasets, as described in [this paper](http://www.anthology.aclweb.org/S/S15/S15-2078.pdf). 
-    * The data is available in the [data/txt](https://github.com/yiyang-gt/social-attention/data/txt) folder. Unfortunately, the text content is not available due to Twitter policy. You need to replace "content" with the real tweets. 
-    * You can preprocss the raw tweets using (tweet = normalizeTextForSentiment(tokenizeRawTweetText(tweet), True)), which can be found in [twokenize.py](https://github.com/yiyang-gt/social-attention/twokenize.py).
-2. The pretrained [word embeddings](https://www.l2f.inesc-id.pt/~wlin/public/embeddings/struc_skip_600.txt) (don't right click the link---use left click and Save link As...). You can save the file in [data/word_embeddings](https://github.com/yiyang-gt/social-attention/data/word_embeddings).
-3. The pretrained author embeddings, which are available in [data/author_embeddings](https://github.com/yiyang-gt/social-attention/data/author_embeddings).
+    * The data is available in the [data/txt](https://github.com/yiyang-gt/social-attention/tree/master/data/txt) folder. Unfortunately, the text content is not available due to Twitter policy. You need to replace "content" with the real tweets. 
+    * You can preprocss the raw tweets using (tweet = normalizeTextForSentiment(tokenizeRawTweetText(tweet), True)), which can be found in [twokenize.py](https://github.com/yiyang-gt/social-attention/master/twokenize.py).
+2. The pretrained [word embeddings](https://www.l2f.inesc-id.pt/~wlin/public/embeddings/struc_skip_600.txt) (don't right click the link---use left click and Save link As...). You can save the file in [data/word_embeddings](https://github.com/yiyang-gt/social-attention/tree/master/data/word_embeddings).
+3. The pretrained author embeddings, which are available in [data/author_embeddings](https://github.com/yiyang-gt/social-attention/tree/master/data/author_embeddings).
 
 
 ## Reproduce results
