@@ -69,6 +69,6 @@ Great, now you are ready to reproduce the results
     ```
 
 6. Run with pre-trained model
-    '''
+    ```
     python run_social_attention.py test data/semeval.pkl data/author_embeddings/retweet.emb model/social_attention_model.pickle
-    '''
+    ```
