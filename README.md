@@ -17,7 +17,7 @@ in
 
 ## Dependencies
 
-1. [Theano](http://deeplearning.net/software/theano/) or [Tensorflow](https://www.tensorflow.org/)
+1. [Theano](http://deeplearning.net/software/theano/)
 2. [Keras](https://keras.io/)
 3. Optional: [CUDA Toolkit](http://docs.nvidia.com/cuda/) for GPU programming.
 
@@ -70,5 +70,5 @@ Great, now you are ready to reproduce the results
 
 6. Run with pre-trained model
     ```
-    python run_social_attention.py test data/semeval.pkl data/author_embeddings/retweet.emb model/social_attention_model.pickle
+    python run_social_attention.py test data/semeval.pkl data/author_embeddings/retweet.emb model/social_attention_model.pkl
     ```
