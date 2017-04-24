@@ -84,7 +84,6 @@ def train_ensemble(datasets,                # word indices of train/dev/test twe
                   metrics=['accuracy'])
     bestDev_perf, best13_perf, best14_perf, best15_perf = 0., 0., 0., 0.
     corr13_perf, corr14_perf, corr15_perf = 0., 0., 0.
-    best_model = None
     for epo in xrange(n_epochs):
         sample_weight = np.zeros(len(train_set_x))
         one_idx = np.random.permutation(len(sample_weight))[:int(len(sample_weight)*1.)]
@@ -106,36 +105,33 @@ def train_ensemble(datasets,                # word indices of train/dev/test twe
 
         if dev_perf >= bestDev_perf:
             bestDev_perf, corr13_perf, corr14_perf, corr15_perf = dev_perf, test13_perf, test14_perf, test15_perf
-            best_model = model
 
         logger.info("Epoch: %d Dev perf: %.3f Test13 perf: %.3f Test14 perf: %.3f Test15 perf: %.3f" %(epo+1, dev_perf*100, test13_perf*100, test14_perf*100, test15_perf*100))
 
     print("CORR: Dev perf: %.3f Test13 perf: %.3f Test14 perf: %.3f Test15 perf: %.3f AVG perf: %.3f" %(bestDev_perf*100, corr13_perf*100, corr14_perf*100, corr15_perf*100, (corr13_perf+corr14_perf+corr15_perf)/3*100))
     print("BEST: Dev perf: %.3f Test13 perf: %.3f Test14 perf: %.3f Test15 perf: %.3f" %(bestDev_perf*100, best13_perf*100, best14_perf*100, best15_perf*100))
 
-    with open(model_path, 'w') as f:
-        cPickle.dump(best_model, f, protocol=cPickle.HIGHEST_PROTOCOL)
+    model.save_weights(model_path)
 
 
-def test(model_path, datasets):
-    with open(model_path, 'rb') as f:
-        model = cPickle.load(f)
-
+def test(datasets, U, A, n_model, text_dim, model_path):
     _, _, test13_set, test14_set, test15_set = datasets
     test13_set_x, test14_set_x, test15_set_x = test13_set[:,:-2], test14_set[:,:-2], test15_set[:,:-2]
     test13_set_u, test14_set_u, test15_set_u = test13_set[:,-2], test14_set[:,-2], test15_set[:,-2]
     test13_set_y, test14_set_y, test15_set_y = test13_set[:,-1], test14_set[:,-1], test15_set[:,-1]
 
+    n_tok = len(test13_set[0])-2  # num of tokens in a tweet
+    model, models = social_attention_model(U, A, n_tok, text_dim, n_model)
+    model.load_weights(model_path)
+
     ypred = model.predict([test13_set_x, test13_set_u], batch_size=batch_size, verbose=0).argmax(axis=-1)
     test13_perf = avg_fscore(ypred, test13_set_y)
-    best13_perf = max(best13_perf, test13_perf)
     ypred = model.predict([test14_set_x, test14_set_u], batch_size=batch_size, verbose=0).argmax(axis=-1)
     test14_perf = avg_fscore(ypred, test14_set_y)
-    best14_perf = max(best14_perf, test14_perf)
     ypred = model.predict([test15_set_x, test15_set_u], batch_size=batch_size, verbose=0).argmax(axis=-1)
     test15_perf = avg_fscore(ypred, test15_set_y)
 
-    print("Test13 perf: %.3f Test14 perf: %.3f Test15 perf: %.3f" %(test13_perf*100, test14_perf*100, test15_perf*100))
+    print("Test13 perf: %.3f Test14 perf: %.3f Test15 perf: %.3f AVG perf: %.3f" %(test13_perf*100, test14_perf*100, test15_perf*100, (test13_perf+test14_perf+test15_perf)/3*100))
 
 
 def avg_fscore(y_pred, y_gold):
@@ -208,7 +204,7 @@ if __name__=="__main__":
     text_dim = 100    # dimension of sentence representation
     batch_size = 10   # size of mini batches
     sample_ratio = 1. # ratio of randomly sampled samples for training per epoch
-    n_epochs = 5      # number of training epochs
+    n_epochs = 2      # number of training epochs
     normal_var = 0.1  # gaussian variance for instance weighting
     pre_epochs = 1    # number pre-training epochs
     ##############################
@@ -232,6 +228,6 @@ if __name__=="__main__":
     if flag == "train":
         train_ensemble(datasets, wordvecs.W, uservecs.W, n_model, text_dim=text_dim, batch_size=batch_size, n_epochs=n_epochs, normal_var=normal_var, pre_epochs=pre_epochs, model_path=model_path)
     elif flag == "test":
-        test(model_path, datasets)
+        test(datasets, wordvecs.W, uservecs.W, n_model, text_dim, model_path)
 
     logger.info("end logging")
