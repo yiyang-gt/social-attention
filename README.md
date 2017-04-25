@@ -37,7 +37,7 @@ In order to reproduce the results reported in the paper, you will need
 
 Great, now you are ready to reproduce the results
 
-1. Prepare the data, and generate the required data file semeval.pkl (ask for the file from me via email if you need)
+1. Prepare the data, and generate the required data file semeval.pkl (available at: https://www.dropbox.com/s/hmh590t1dtot5qq/semeval.pkl?dl=0)
     ```
     python process_data.py data/word_embeddings/struc_skip_600.txt \
                            data/semeval.pkl \
@@ -68,7 +68,7 @@ Great, now you are ready to reproduce the results
     python social_attention.py data/semeval.pkl data/author_embeddings/retweet.emb
     ```
 
-6. Run with pre-trained model
+6. Run with pre-trained model (Test13 F1: 71.7 Test14 F1: 75.6 Test15 F1: 66.8 Average: 71.4)
     ```
     python run_social_attention.py test data/semeval.pkl data/author_embeddings/retweet.emb model/social_attention_model.h5
     ```
