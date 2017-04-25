@@ -37,7 +37,7 @@ In order to reproduce the results reported in the paper, you will need
 
 Great, now you are ready to reproduce the results
 
-1. Prepare the data, and generate the required data file semeval.pkl (available at: https://www.dropbox.com/s/hmh590t1dtot5qq/semeval.pkl?dl=0)
+1. Prepare the data, and generate the required data file semeval.pkl (available [here](https://www.dropbox.com/s/hmh590t1dtot5qq/semeval.pkl?dl=0))
     ```
     python process_data.py data/word_embeddings/struc_skip_600.txt \
                            data/semeval.pkl \
